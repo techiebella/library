@@ -1,0 +1,83 @@
+{% extends 'student_navbar.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block css %}
+<style>
+    .profile-card {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .profile-card h3 {
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    label {
+        font-weight: 600;
+    }
+    .btn-update {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="profile-card">
+    <h3> Edit Profile</h3>
+    <form method="POST"> 
+        {% csrf_token %}
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="col-md-6">
+                <label>Mobile Number</label>
+                <input type="number" class="form-control" name="phone" value="{{ user.student.phone }}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Branch Name</label>
+                <input type="text" class="form-control" name="branch" value="{{ user.student.branch }}" required>
+            </div>
+            <div class="col-md-6">
+                <label>Class Name</label>
+                <input type="text" class="form-control" name="classroom" value="{{ user.student.classroom }}" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Roll Number</label>
+                <input type="text" class="form-control" name="roll_no" value="{{ user.student.roll_no }}" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-update mt-3">Update Profile</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    {% if alert %}
+        Swal.fire({
+            icon: 'success',
+            title: 'Profile Updated!',
+            text: 'Your profile has been updated successfully.',
+            confirmButtonColor: '#0d6efd'
+        }).then(() => {
+            window.location.href = "/profile";
+        });
+    {% endif %}
+</script>
+{% endblock %}

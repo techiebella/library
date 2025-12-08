@@ -1,0 +1,157 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+
+{% block title %}All Issued Books{% endblock %}
+
+{% block css %}
+<style>
+    /* Container Card Styling */
+    .issued-card {
+        margin-top: 40px;
+        padding: 30px;
+        background: #f8f9fa; /* soft light background */
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .issued-card h2 {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #343a40;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+        background-color: #e9f2ff;
+        transition: 0.3s;
+    }
+
+    /* Button Styling */
+    .btn-return {
+        font-size: 0.9rem;
+        padding: 5px 12px;
+        border-radius: 6px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .btn-return:hover {
+        background-color: #218838;
+        color: #fff;
+    }
+
+    .btn-delete {
+        font-size: 0.9rem;
+        padding: 5px 12px;
+        border-radius: 6px;
+        background-color: #ff6b6b;
+        color: #fff;
+        border: none;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .btn-delete:hover {
+        background-color: #ff4c4c;
+        color: #fff;
+    }
+
+    /* Responsive Table */
+    .table-responsive {
+        overflow-x: auto;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container issued-card">
+    <h2>All Issued Books</h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped text-center" id="example">
+            <thead class="table-dark">
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Student</th>
+                    <th>Student ID</th>
+                    <th>Book Name</th>
+                    <th>ISBN</th>
+                    <th>Issued Date</th>
+                    <th>Expiry Date</th>
+                    <th>Fine</th>
+                    <th>Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in details %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td>
+                    <td>{{ i.0 }}</td>
+                    <td>{{ i.1 }}</td>
+                    <td>{{ i.2 }}</td>
+                    <td>{{ i.3 }}</td>
+                    <td>{{ i.4 }}</td>
+                    <td>{{ i.5 }}</td>
+                    <td>₹ {{ i.6 }}</td>
+                    <td>
+                        <a href="{% url 'mark_as_returned' i.7 %}" class="btn-return">Return</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">No issued books found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
+            columnDefs: [
+                { orderable: false, targets: 8 } // Disable sorting on Return column
+            ]
+        });
+    });
+</script>
+{% endblock %}

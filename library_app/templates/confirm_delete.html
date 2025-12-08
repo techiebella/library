@@ -1,0 +1,12 @@
+{% extends 'admin_navbar.html' %}
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<h3>Are you sure you want to delete the issued book: "{{ issued_book.book.title }}" issued to "{{ issued_book.student.name }}"?</h3>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+    <a href="{% url 'view_issued_books' %}">Cancel</a>
+</form>
+{% endblock %}
