@@ -157,7 +157,7 @@ http://127.0.0.1:8000/
 
 ---
 
-## 📚 Book Management
+## 👨‍🎓 Student Dashboard
 
 <img width="100%" src="https://github.com/user-attachments/assets/6fb35cec-6091-4d59-ad41-384de224f2a3">
 
@@ -169,7 +169,7 @@ http://127.0.0.1:8000/
 
 ---
 
-## 👨‍🎓 Student Management
+## 📚 Book Management
 
 <img width="100%" src="https://github.com/user-attachments/assets/afb51b42-65f0-4a9b-906f-b7ab184efc01">
 
