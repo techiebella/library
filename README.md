@@ -157,13 +157,13 @@ http://127.0.0.1:8000/
 
 ---
 
-## 📊 Admin Dashboard
+## 📚 Book Management
 
 <img width="100%" src="https://github.com/user-attachments/assets/6fb35cec-6091-4d59-ad41-384de224f2a3">
 
 ---
 
-## 📚 Book Management
+## 📊 Admin Dashboard
 
 <img width="100%" src="https://github.com/user-attachments/assets/773364b1-6935-49e7-8427-825556e59760">
 
