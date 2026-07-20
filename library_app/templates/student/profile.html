@@ -1,0 +1,289 @@
+{% extends 'partials/student_navbar.html' %}
+{% load static %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block css %}
+<style>
+
+body{
+    background:#f8fafc;
+    font-family:'Poppins',sans-serif;
+}
+
+
+/* Profile Card */
+
+.profile-card{
+
+    max-width:900px;
+    margin:50px auto;
+    background:#ffffff;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(17,24,39,0.12);
+
+}
+
+
+
+/* Header */
+
+.profile-header{
+
+    background:#111827;
+    color:white;
+    padding:25px;
+    text-align:center;
+
+}
+
+
+.profile-header h3{
+
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+
+}
+
+
+
+/* Image Section */
+
+.profile-img{
+
+    text-align:center;
+    padding:40px 20px;
+
+}
+
+
+
+.profile-img img{
+
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:50%;
+    border:6px solid #059669;
+    padding:5px;
+    background:white;
+    box-shadow:0 8px 20px rgba(5,150,105,0.25);
+
+}
+
+
+
+/* Information */
+
+.profile-info{
+
+    padding:35px;
+
+}
+
+
+
+.profile-info .row{
+
+    padding:10px 0;
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+
+.profile-info label{
+
+    font-weight:600;
+    color:#059669;
+    font-size:15px;
+
+}
+
+
+
+.profile-info p{
+
+    margin:0;
+    color:#374151;
+    font-size:15px;
+
+}
+
+
+
+/* Edit Button */
+
+.btn-edit{
+
+    margin-top:25px;
+    background:#059669;
+    color:white;
+    border:none;
+    padding:10px 25px;
+    border-radius:25px;
+    font-weight:600;
+    transition:.3s;
+
+}
+
+
+
+.btn-edit:hover{
+
+    background:#047857;
+    color:white;
+    transform:translateY(-2px);
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+
+.profile-card{
+
+    margin:20px;
+
+}
+
+
+.profile-img img{
+
+    width:170px;
+    height:170px;
+
+}
+
+
+.profile-info{
+
+    padding:20px;
+
+}
+
+
+.profile-info .row{
+
+    text-align:left;
+
+}
+
+
+}
+
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="profile-card">
+
+    <div class="profile-header">
+        <h3>Student Profile</h3>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4 profile-img">
+
+            {% if user.student.image %}
+                <img src="{{ user.student.image.url }}" alt="Profile Image">
+            {% else %}
+                <img src="{% static 'images/default_profile.png' %}" alt="Default Profile">
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="profile-info">
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>ID</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.id }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Username</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.username }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Full Name</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.get_full_name|default:user.username }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.email|default:"Not Available" }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Phone</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.student.phone|default:"Not Available" }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Branch</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.student.branch|default:"Not Available" }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Class</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.student.classroom|default:"Not Available" }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label>Roll Number</label>
+                    </div>
+                    <div class="col-7">
+                        <p>{{ user.student.roll_no|default:"Not Available" }}</p>
+                    </div>
+                </div>
+
+                <a href="{% url 'edit_profile' %}" class="btn btn-primary btn-edit">
+                    Edit Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

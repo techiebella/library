@@ -1,0 +1,201 @@
+{% extends 'partials/admin_navbar.html' %}
+{% load static %}
+
+{% block title %}Add Book{% endblock %}
+{% block css %}
+<style>
+
+body {
+    background: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Main Card */
+.card {
+    border-radius: 22px !important;
+    overflow: hidden;
+    border: none;
+    background: white;
+    box-shadow: 0 10px 30px rgba(17,24,39,0.12);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(17,24,39,0.18);
+}
+
+
+/* Header */
+.card-header {
+    background: linear-gradient(135deg, #059669, #047857) !important;
+    padding: 25px;
+    border: none;
+}
+
+.card-header h3 {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+/* Card Body */
+.card-body {
+    padding: 40px !important;
+}
+
+
+/* Labels */
+.form-label {
+    color: #111827;
+    font-weight: 600;
+}
+
+
+/* Inputs */
+.form-control {
+    height: 50px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #111827;
+    transition: all 0.3s ease;
+}
+
+
+.form-control:focus {
+    border-color: #059669;
+    box-shadow: 0 0 0 0.2rem rgba(5,150,105,0.20);
+}
+
+
+/* Placeholder */
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+
+/* Buttons */
+.btn {
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 12px 35px;
+    transition: 0.3s;
+}
+
+
+/* Add Book Button */
+.btn-success {
+    background: #059669;
+    border: none;
+}
+
+
+.btn-success:hover {
+    background: #047857;
+    transform: translateY(-2px);
+}
+
+
+/* Back Button */
+.btn-secondary {
+    background: #d97706;
+    border: none;
+}
+
+
+.btn-secondary:hover {
+    background: #b45309;
+    transform: translateY(-2px);
+}
+
+
+/* Form spacing */
+.mb-3 {
+    margin-bottom: 22px !important;
+}
+
+
+/* Responsive */
+@media(max-width:768px){
+
+    .card-body {
+        padding:25px !important;
+    }
+
+    .card-header h3 {
+        font-size:22px;
+    }
+
+    .btn {
+        width:100%;
+        margin-bottom:10px;
+    }
+
+}
+
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Add New Book</h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Book Name</label>
+                            <input type="text" name="book_name" class="form-control" placeholder="Enter book name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Author</label>
+                            <input type="text" name="author" class="form-control" placeholder="Enter author name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <input type="text" name="category" class="form-control" placeholder="Programming, Novel, etc." required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">ISBN Number</label>
+                            <input type="text" name="isbn" class="form-control" placeholder="Enter ISBN Number" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" name="quantity" class="form-control" min="1" placeholder="Enter quantity" required>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-5">
+                                Add Book
+                            </button>
+
+                            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary px-5">
+                                Back
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

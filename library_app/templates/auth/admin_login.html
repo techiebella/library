@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Login | Library Management System{% endblock %}
+
+{% block css %}
+<style>
+
+body{
+
+    background:
+    linear-gradient(135deg,#ecfdf5,#fff7ed);
+
+}
+
+
+/* Login Card */
+
+.login-card{
+
+    max-width:430px;
+
+    margin:80px auto;
+
+    padding:40px;
+
+    background:
+    rgba(255,255,255,0.85);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:30px;
+
+    border:
+    1px solid rgba(255,255,255,.5);
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.12);
+
+    animation:fadeUp .6s ease;
+
+}
+
+
+
+/* Animation */
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+/* Heading */
+
+.login-card h2{
+
+    font-weight:700;
+
+    background:
+    linear-gradient(45deg,#065f46,#d97706);
+
+    background-clip:text;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+
+/* Description */
+
+.login-card p{
+
+    color:#64748b!important;
+
+}
+
+
+
+/* Labels */
+
+label{
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* Input */
+
+.form-control{
+
+    border-radius:15px;
+
+    padding:14px;
+
+    border:1px solid #d1d5db;
+
+    background:#f8fafc;
+
+    transition:.3s;
+
+}
+
+
+
+.form-control:focus{
+
+    border-color:#059669;
+
+    box-shadow:
+    0 0 12px rgba(5,150,105,.25);
+
+}
+
+
+
+/* Login Button */
+
+.btn-primary{
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(135deg,#059669,#10b981);
+
+    box-shadow:
+    0 10px 25px rgba(5,150,105,.3);
+
+    transition:.3s;
+
+}
+
+
+
+.btn-primary:hover{
+
+    background:
+    linear-gradient(135deg,#047857,#059669);
+
+    transform:translateY(-3px);
+
+}
+
+
+
+/* Footer */
+
+.login-footer{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:#64748b;
+
+}
+
+
+
+/* Lock Icon */
+
+.login-card h2:first-letter{
+
+    color:#d97706;
+
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="login-card">
+
+        <h2 class="text-center mb-2">Admin Login</h2>
+
+        <p class="text-muted mb-4 text-center" style="font-size: 14px;">
+            Only administrators are allowed to log in here.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" class="form-control" name="username"
+                       placeholder="Enter Username" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password"
+                       placeholder="Enter Password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-2">
+                Login
+            </button>
+        </form>
+
+        <div class="login-footer">
+            Secure access to Library Admin Dashboard
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const alertFlag = "{{ alert|default:'0' }}";
+
+    if (alertFlag === "1" || alertFlag === "True") {
+        Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: "Invalid username or password. Please try again.",
+            confirmButtonColor: "#0d6efd"
+        });
+    }
+</script>
+{% endblock %}

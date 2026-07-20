@@ -1,0 +1,47 @@
+{% extends 'admin_navbar.html' %}
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center p-4">
+
+                    <h4 class="text-danger mb-3">
+                        ⚠️ Confirm Deletion
+                    </h4>
+
+                    <p class="mb-4">
+                        Are you sure you want to delete the issued book:
+                        <br><br>
+                        <strong>"{{ issued_book.book.title }}"</strong>
+                        <br>
+                        issued to
+                        <strong>"{{ issued_book.student.name }}"</strong>?
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="d-flex justify-content-center gap-3">
+                            <button type="submit" class="btn btn-danger px-4">
+                                Yes, Delete
+                            </button>
+
+                            <a href="{% url 'view_issued_books' %}" class="btn btn-secondary px-4">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

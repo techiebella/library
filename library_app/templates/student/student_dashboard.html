@@ -1,0 +1,334 @@
+{% extends 'partials/student_navbar.html' %}
+{% load static %}
+
+
+{% block title %}
+Student Dashboard
+{% endblock %}
+
+
+
+{% block css %}
+
+<style>
+    body {
+        background: #f8fafc;
+    }
+
+
+    /* Welcome Section */
+
+    .welcome-card {
+
+        background: #111827;
+        color: white;
+        padding: 35px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+
+    }
+
+
+    .welcome-card h2 {
+
+        font-weight: 700;
+
+    }
+
+
+    .welcome-card span {
+
+        color: #d97706;
+
+    }
+
+
+
+    /* Dashboard Cards */
+
+
+    .dashboard-card {
+
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        border: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        transition: .3s;
+
+    }
+
+
+    .dashboard-card:hover {
+
+        transform: translateY(-5px);
+
+    }
+
+
+
+    .icon-box {
+
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #059669;
+        color: white;
+        font-size: 25px;
+        margin-bottom: 15px;
+
+    }
+
+
+
+    .card-title {
+
+        color: #6b7280;
+        font-size: 15px;
+
+    }
+
+
+    .card-value {
+
+        font-size: 30px;
+        font-weight: 700;
+        color: #111827;
+
+    }
+
+
+
+    /* Quick Action */
+
+    .action-card {
+
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        margin-top: 30px;
+
+    }
+
+
+    .action-btn {
+
+        background: #059669;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        display: inline-block;
+        margin: 8px;
+        transition: .3s;
+
+    }
+
+
+    .action-btn:hover {
+
+        background: #047857;
+        color: white;
+
+    }
+
+
+    .action-btn.gold {
+
+        background: #d97706;
+
+    }
+
+
+    .action-btn.gold:hover {
+
+        background: #b45309;
+
+    }
+</style>
+
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+<div class="container-fluid">
+
+
+    <!-- Welcome -->
+
+    <div class="welcome-card">
+
+        <h2>
+            Welcome,
+            <span>{{request.user.first_name}}</span>
+        </h2>
+
+        <p>
+            Manage your books, check issued books and explore the library.
+        </p>
+
+    </div>
+
+
+
+
+    <!-- Statistics -->
+
+
+    <div class="row g-4">
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon-box">
+
+                    <i class="bi bi-book"></i>
+
+                </div>
+
+
+                <div class="card-title">
+                    Available Books
+                </div>
+
+
+                <div class="card-value">
+                    {{total_books}}
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-card">
+
+
+                <div class="icon-box">
+
+                    <i class="bi bi-journal-bookmark"></i>
+
+                </div>
+
+
+                <div class="card-title">
+                    Issued Books
+                </div>
+
+
+                <div class="card-value">
+                    {{issued_books}}
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <div class="col-md-4">
+
+
+            <div class="dashboard-card">
+
+
+                <div class="icon-box">
+
+                    <i class="bi bi-currency-rupee"></i>
+
+                </div>
+
+
+                <div class="card-title">
+                    Pending Fine
+                </div>
+
+
+                <div class="card-value">
+
+                    ₹{{fine}}
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Quick Actions -->
+
+
+    <div class="action-card">
+
+
+        <h4 class="mb-3">
+            Quick Actions
+        </h4>
+
+
+
+        <a href="{% url 'student_view_books' %}" class="action-btn">
+
+            <i class="bi bi-search"></i>
+            Search Books
+
+        </a>
+
+
+
+        <a href="{% url 'student_issued_books' %}" class="action-btn gold">
+
+            <i class="bi bi-journal-text"></i>
+            My Books
+
+        </a>
+
+
+
+        <a href="{% url 'profile' %}" class="action-btn">
+
+            <i class="bi bi-person"></i>
+            Profile
+
+        </a>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

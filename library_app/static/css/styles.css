@@ -1,0 +1,210 @@
+/* ================= NAVBAR ================= */
+
+.library-navbar{
+
+    background:#ffffff;
+
+    padding:16px 0;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.08);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+}
+
+
+
+/* Logo */
+
+.navbar-brand{
+
+    font-size:30px;
+
+    font-weight:800;
+
+    color:#111827!important;
+
+    letter-spacing:-1px;
+
+}
+
+
+.navbar-brand span{
+
+    color:#059669;
+
+}
+
+
+
+/* Navbar links */
+
+.nav-link{
+
+    color:#374151!important;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    margin-left:25px;
+
+    transition:.3s;
+
+    position:relative;
+
+}
+
+
+
+.nav-link:hover{
+
+    color:#059669!important;
+
+}
+
+
+
+/* Hover underline */
+
+.nav-link::after{
+
+    content:"";
+
+    position:absolute;
+
+    height:3px;
+
+    width:0;
+
+    background:#d97706;
+
+    left:0;
+
+    bottom:-7px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+
+.nav-link:hover::after{
+
+    width:100%;
+
+}
+
+
+
+/* Active Home */
+
+.nav-link.active{
+
+    color:#059669!important;
+
+}
+
+
+
+/* Register button */
+
+
+.register-btn{
+
+    background:
+
+    linear-gradient(135deg,#059669,#047857);
+
+    color:white!important;
+
+    padding:11px 28px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    display:inline-block;
+
+    box-shadow:
+
+    0 8px 20px rgba(5,150,105,.25);
+
+}
+
+
+
+.register-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:
+
+    linear-gradient(135deg,#047857,#065f46);
+
+}
+
+
+
+/* Mobile Toggle */
+
+.navbar-toggler{
+
+    border:none;
+
+}
+
+
+.navbar-toggler:focus{
+
+    box-shadow:none;
+
+}
+
+
+.navbar-toggler-icon{
+
+    filter:
+
+    invert(35%)
+
+    sepia(90%)
+
+    saturate(600%)
+
+    hue-rotate(120deg);
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:991px){
+
+
+.nav-link{
+
+    margin:10px 0;
+
+}
+
+
+.register-btn{
+
+    margin-top:10px;
+
+}
+
+
+}

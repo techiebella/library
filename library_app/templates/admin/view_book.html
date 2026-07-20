@@ -1,0 +1,454 @@
+{% extends 'partials/admin_navbar.html' %}
+{% load static %}
+
+{% block title %}All Books List{% endblock %}
+
+
+{% block css %}
+
+<style>
+
+body {
+    background: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Books Container */
+.books-card {
+
+    margin-top: 40px;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(17,24,39,0.10);
+    border: none;
+}
+
+
+/* Heading */
+.books-card h2 {
+
+    text-align: center;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 30px;
+    font-size: 30px;
+
+}
+
+
+/* Table */
+.table {
+
+    border-radius: 15px;
+    overflow: hidden;
+
+}
+
+
+.table thead th {
+
+    background: #111827 !important;
+    color: white;
+    padding: 15px;
+    font-weight: 600;
+    border: none;
+
+}
+
+
+.table tbody td {
+
+    vertical-align: middle;
+    padding: 14px;
+    color: #374151;
+    font-size: 15px;
+
+}
+
+
+.table-hover tbody tr:hover {
+
+    background: rgba(5,150,105,0.08);
+    transition: 0.3s;
+
+}
+
+
+/* DataTables Search Box */
+.dataTables_filter input {
+
+    border-radius: 20px !important;
+    border: 1px solid #d1d5db !important;
+    padding: 8px 15px !important;
+
+}
+
+
+.dataTables_filter input:focus {
+
+    border-color: #059669 !important;
+    outline: none;
+
+}
+
+
+/* DataTables Length */
+.dataTables_length select {
+
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+
+}
+
+
+/* Buttons */
+.dt-buttons button {
+
+    background: #059669 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 20px !important;
+    padding: 8px 18px !important;
+    margin: 5px;
+    font-weight: 600;
+
+}
+
+
+.dt-buttons button:hover {
+
+    background: #047857 !important;
+}
+
+
+/* Pagination */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+
+    border-radius: 50% !important;
+    margin: 3px;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+
+    background: #059669 !important;
+    color: white !important;
+    border: none !important;
+
+}
+
+
+
+/* Delete Button */
+.btn-danger {
+
+    background: #d97706;
+    border: none;
+    border-radius: 20px;
+    padding: 7px 18px;
+    font-weight: 600;
+
+}
+
+
+.btn-danger:hover {
+
+    background: #b45309;
+    transform: translateY(-2px);
+
+}
+
+
+
+/* Empty State */
+.empty-state {
+
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 18px;
+
+}
+
+
+/* Responsive */
+@media(max-width:768px){
+
+    .books-card {
+
+        padding: 20px;
+        margin-top: 20px;
+
+    }
+
+
+    .books-card h2 {
+
+        font-size: 24px;
+
+    }
+
+
+    .dt-buttons button {
+
+        width:100%;
+        margin-bottom:8px;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<div class="container books-card">
+
+
+    <h2>All Books List</h2>
+
+
+
+    <div class="table-responsive">
+
+
+        <table class="table table-hover table-striped" id="example">
+
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Sr.No</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>ISBN Number</th>
+                    <th>Category</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+                {% for book in books %}
+
+                <tr>
+
+                    <td>{{ forloop.counter }}</td>
+
+                    <td>{{ book.book_name }}</td>
+
+                    <td>{{ book.author }}</td>
+
+                    <td>{{ book.isbn }}</td>
+
+                    <td>{{ book.category }}</td>
+
+
+                    <td>
+
+                        <a href="{% url 'delete_book' id=book.id %}" class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+
+                    </td>
+
+
+                </tr>
+
+
+                {% empty %}
+
+
+                <tr>
+
+                    <td></td>
+
+                    <td>No books available.</td>
+
+                    <td></td>
+
+                    <td></td>
+
+                    <td></td>
+
+                    <td></td>
+
+                </tr>
+
+
+                {% endfor %}
+
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+{% block js %}
+
+
+
+<!-- jQuery -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<!-- DataTables -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+
+<!-- DataTables Buttons -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+
+
+<!-- SweetAlert -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+
+        $('#example').DataTable({
+
+            responsive: true,
+
+            pageLength: 10,
+
+            dom: 'Bfrtip',
+
+            buttons: [
+
+                'copy',
+                'excel',
+                'csv',
+                'pdf',
+                'print'
+
+            ],
+
+
+            columnDefs: [
+
+                {
+
+                    orderable: false,
+
+                    targets: 5
+
+                }
+
+            ]
+
+
+        });
+
+
+    });
+
+
+
+
+
+    function confirmDelete(bookId) {
+
+
+        Swal.fire({
+
+            title: "Are you sure?",
+
+            text: "This book will be permanently deleted!",
+
+            icon: "warning",
+
+            showCancelButton: true,
+
+            confirmButtonColor: "#d33",
+
+            cancelButtonColor: "#6c757d",
+
+            confirmButtonText: "Yes, delete it!"
+
+        }).then((result) => {
+
+
+            if (result.isConfirmed) {
+
+
+                window.location.href = "/delete_book/" + bookId + "/";
+
+
+            }
+
+
+        });
+
+
+    }
+
+
+
+</script>
+
+
+
+{% endblock %}

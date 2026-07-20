@@ -1,0 +1,419 @@
+{% extends 'partials/admin_navbar.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard | Library Management System{% endblock %}
+
+{% block css %}
+<style>
+    body {
+
+        background:
+            linear-gradient(135deg, #ecfdf5, #fff7ed);
+
+    }
+
+
+    /* ==========================
+   DASHBOARD TITLE
+========================== */
+
+
+    .dashboard-title {
+
+        text-align: center;
+
+        margin-top: 35px;
+
+        margin-bottom: 40px;
+
+        font-size: 36px;
+
+        font-weight: 800;
+
+
+        background:
+
+            linear-gradient(45deg, #065f46, #d97706);
+
+
+        background-clip: text;
+
+        -webkit-background-clip: text;
+
+
+        color: transparent;
+
+    }
+
+
+
+    /* ==========================
+   DASHBOARD CARDS
+========================== */
+
+
+    .card-box {
+
+
+        background:
+
+            rgba(255, 255, 255, .85);
+
+
+        backdrop-filter: blur(20px);
+
+
+        padding: 30px;
+
+
+        border-radius: 30px;
+
+
+        border:
+
+            1px solid rgba(255, 255, 255, .5);
+
+
+        box-shadow:
+
+            0 20px 45px rgba(0, 0, 0, .1);
+
+
+        text-align: center;
+
+
+        transition: .4s;
+
+
+        height: 100%;
+
+
+        animation: fade .6s ease;
+
+    }
+
+
+
+    .card-box:hover {
+
+
+        transform: translateY(-12px);
+
+
+        box-shadow:
+
+            0 30px 60px rgba(0, 0, 0, .15);
+
+    }
+
+
+
+    /* ==========================
+   ICON
+========================== */
+
+
+    .icon {
+
+
+        width: 80px;
+
+        height: 80px;
+
+        margin: 0 auto 20px;
+
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+
+        border-radius: 50%;
+
+
+        font-size: 38px;
+
+
+        background:
+
+            linear-gradient(135deg, #ecfdf5, #fff7ed);
+
+
+    }
+
+
+
+    /* ==========================
+   NUMBER
+========================== */
+
+
+    .card-box h3 {
+
+
+        font-size: 40px;
+
+
+        font-weight: 800;
+
+
+        margin-bottom: 10px;
+
+
+        background:
+
+            linear-gradient(45deg, #059669, #d97706);
+
+
+        background-clip: text;
+
+        -webkit-background-clip: text;
+
+
+        color: transparent;
+
+    }
+
+
+
+    .card-box p {
+
+
+        color: #64748b;
+
+        font-weight: 600;
+
+        font-size: 17px;
+
+    }
+
+
+
+    /* ==========================
+   BUTTON
+========================== */
+
+
+    .btn-primary {
+
+
+        background:
+
+            linear-gradient(135deg, #059669, #10b981);
+
+
+        border: none;
+
+
+        border-radius: 50px;
+
+
+        padding: 8px 25px;
+
+
+        font-weight: 600;
+
+
+        transition: .3s;
+
+    }
+
+
+
+    .btn-primary:hover {
+
+
+        background:
+
+            linear-gradient(135deg, #047857, #059669);
+
+
+        transform: translateY(-3px);
+
+
+    }
+
+
+
+    /* ==========================
+   ANIMATION
+========================== */
+
+
+    @keyframes fade {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(30px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    }
+
+
+
+    /* ==========================
+   RESPONSIVE
+========================== */
+
+
+    @media(max-width:768px) {
+
+
+        .dashboard-title {
+
+            font-size: 28px;
+
+        }
+
+
+        .card-box {
+
+            padding: 25px;
+
+        }
+
+
+    }
+    .icon{
+
+    width:80px;
+    height:80px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(135deg,#ecfdf5,#fff7ed);
+
+    color:#059669;
+
+    font-size:35px;
+
+    transition:.3s;
+
+}
+
+
+.card-box:hover .icon{
+
+    background:
+    linear-gradient(135deg,#059669,#d97706);
+
+    color:white;
+
+    transform:scale(1.1);
+
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h2 class="dashboard-title">Admin Dashboard</h2>
+
+    <div class="row g-4">
+
+        <!-- Total Books -->
+        <div class="col-md-4">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-book"></i>
+                </div>
+                <h3>{{ total_books }}</h3>
+                <p>Total Books</p>
+            </div>
+        </div>
+
+        <!-- Total Students -->
+        <div class="col-md-4">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <h3>{{ total_students }}</h3>
+                <p>Total Students</p>
+            </div>
+        </div>
+
+        <!-- Issued Books -->
+        <div class="col-md-4">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h3>{{ issued_books }}</h3>
+                <p>Issued Books</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-5 g-4">
+
+        <!-- Quick Links -->
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-circle-plus"></i>
+                </div>
+                <p>Add Book</p>
+                <a href="{% url 'add_book' %}" class="btn btn-primary btn-sm mt-2">Open</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <p>View Books</p>
+                <a href="{% url 'view_books' %}" class="btn btn-primary btn-sm mt-2">Open</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <p>Students</p>
+                <a href="{% url 'view_students' %}" class="btn btn-primary btn-sm mt-2">Open</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-box">
+                <div class="icon">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                </div>
+                <p>Issued Books</p>
+                <a href="{% url 'view_issued_book' %}" class="btn btn-primary btn-sm mt-2">Open</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

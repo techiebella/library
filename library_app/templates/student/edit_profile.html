@@ -1,0 +1,318 @@
+{% extends 'partials/student_navbar.html' %}
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+
+{% block css %}
+
+<style>
+
+body{
+    background:#f8fafc;
+}
+
+
+/* Profile Card */
+
+.profile-card{
+
+    max-width:750px;
+    margin:50px auto;
+    padding:35px;
+    background:#ffffff;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    transition:.3s;
+
+}
+
+
+.profile-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+
+
+.profile-card h3{
+
+    font-weight:700;
+    text-align:center;
+    color:#111827;
+    margin-bottom:30px;
+
+}
+
+
+
+label{
+
+    font-weight:600;
+    color:#374151;
+    margin-bottom:7px;
+
+}
+
+
+
+.form-control{
+
+    border-radius:12px;
+    padding:12px;
+    border:1px solid #d1d5db;
+    transition:.3s;
+
+}
+
+
+
+.form-control:focus{
+
+    border-color:#059669;
+    box-shadow:0 0 8px rgba(5,150,105,.25);
+
+}
+
+
+
+/* Update Button */
+
+.btn-update{
+
+    width:100%;
+    padding:12px;
+    border-radius:30px;
+    background:#059669;
+    color:white;
+    border:none;
+    font-weight:600;
+    font-size:16px;
+    transition:.3s;
+
+}
+
+
+
+.btn-update:hover{
+
+    background:#047857;
+    transform:scale(1.02);
+    color:white;
+
+}
+
+
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .profile-card{
+
+        margin:20px;
+        padding:25px;
+
+    }
+
+}
+
+</style>
+
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+<div class="profile-card">
+
+
+<h3>
+    Edit Profile
+</h3>
+
+
+
+<form method="POST">
+
+{% csrf_token %}
+
+
+
+<div class="row mb-3">
+
+
+<div class="col-md-6">
+
+<label>
+Email
+</label>
+
+<input 
+type="email"
+class="form-control"
+name="email"
+value="{{ user.email }}"
+required>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+<label>
+Mobile Number
+</label>
+
+<input 
+type="number"
+class="form-control"
+name="phone"
+value="{{ user.student.phone }}"
+required>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="row mb-3">
+
+
+<div class="col-md-6">
+
+<label>
+Branch Name
+</label>
+
+<input 
+type="text"
+class="form-control"
+name="branch"
+value="{{ user.student.branch }}"
+required>
+
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+
+<label>
+Class Name
+</label>
+
+
+<input 
+type="text"
+class="form-control"
+name="classroom"
+value="{{ user.student.classroom }}"
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="row mb-3">
+
+
+<div class="col-md-6">
+
+
+<label>
+Roll Number
+</label>
+
+
+<input 
+type="text"
+class="form-control"
+name="roll_no"
+value="{{ user.student.roll_no }}"
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<button type="submit" class="btn-update mt-3">
+
+<i class="bi bi-check-circle"></i>
+Update Profile
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{% if alert %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+
+Swal.fire({
+
+    icon:'success',
+    title:'Profile Updated!',
+    text:'Your profile has been updated successfully.',
+    confirmButtonColor:'#059669'
+
+}).then(()=>{
+
+    window.location.href="{% url 'profile' %}";
+
+});
+
+
+});
+
+
+</script>
+
+{% endif %}
+
+
+{% endblock %}

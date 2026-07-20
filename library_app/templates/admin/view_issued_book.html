@@ -1,0 +1,622 @@
+{% extends 'partials/admin_navbar.html' %}
+{% load static %}
+
+{% block title %}All Issued Books{% endblock %}
+
+
+{% block css %}
+<style>
+
+body {
+    background: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Main Card */
+.card {
+
+    margin-top: 40px;
+    border: none;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(17,24,39,0.10);
+
+}
+
+
+
+/* Card Header */
+.card-header {
+
+    background: linear-gradient(135deg,#059669,#047857);
+    color:white;
+    font-size:26px;
+    font-weight:700;
+    text-align:center;
+    padding:22px;
+    border:none;
+
+}
+
+
+
+/* Card Body */
+.card-body {
+
+    padding:30px;
+    background:white;
+
+}
+
+
+
+/* Table */
+.table {
+
+    border-radius:15px;
+    overflow:hidden;
+
+}
+
+
+.table thead th {
+
+    background:#111827 !important;
+    color:white;
+    padding:15px;
+    font-weight:600;
+    text-align:center;
+
+}
+
+
+
+.table tbody td {
+
+    text-align:center;
+    vertical-align:middle;
+    padding:14px;
+    color:#374151;
+
+}
+
+
+
+.table-hover tbody tr:hover {
+
+    background:rgba(5,150,105,0.08);
+    transition:.3s;
+
+}
+
+
+
+/* Status Badges */
+
+.badge {
+
+    padding:8px 15px;
+    border-radius:20px;
+    font-size:13px;
+
+}
+
+
+.bg-primary {
+
+    background:#059669 !important;
+
+}
+
+
+.bg-success {
+
+    background:#16a34a !important;
+
+}
+
+
+.bg-danger {
+
+    background:#dc2626 !important;
+
+}
+
+
+
+/* Edit Button */
+
+.btn-warning {
+
+    background:#d97706;
+    color:white;
+    border:none;
+    border-radius:20px;
+    padding:7px 18px;
+    font-weight:600;
+
+}
+
+
+.btn-warning:hover {
+
+    background:#b45309;
+    color:white;
+    transform:translateY(-2px);
+
+}
+
+
+
+/* Modal */
+
+.modal-content {
+
+    border-radius:20px;
+    border:none;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+
+.modal-header {
+
+    background:#059669;
+    color:white;
+    border-radius:20px 20px 0 0;
+
+}
+
+
+.modal-title {
+
+    font-weight:700;
+
+}
+
+
+.form-select {
+
+    border-radius:12px;
+    height:45px;
+
+}
+
+
+.form-select:focus {
+
+    border-color:#059669;
+    box-shadow:0 0 0 .2rem rgba(5,150,105,.2);
+
+}
+
+
+
+/* Modal Buttons */
+
+.modal-footer .btn-secondary {
+
+    background:#6b7280;
+    border:none;
+    border-radius:20px;
+
+}
+
+
+.modal-footer .btn-primary {
+
+    background:#059669;
+    border:none;
+    border-radius:20px;
+
+}
+
+
+.modal-footer .btn-primary:hover {
+
+    background:#047857;
+
+}
+
+
+
+/* DataTables Search */
+
+.dataTables_filter input {
+
+    border-radius:25px !important;
+    padding:8px 15px !important;
+    border:1px solid #d1d5db !important;
+
+}
+
+
+.dataTables_filter input:focus {
+
+    border-color:#059669 !important;
+
+}
+
+
+
+/* Pagination */
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+
+    background:#059669 !important;
+    color:white !important;
+    border:none !important;
+    border-radius:50% !important;
+
+}
+
+
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .card-body {
+
+        padding:20px;
+
+    }
+
+
+    .card-header {
+
+        font-size:22px;
+
+    }
+
+}
+
+</style>
+{% endblock %}
+{% block body %}
+
+
+<div class="container">
+
+
+    <div class="card">
+
+
+        <div class="card-header">
+            All Issued Books
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+
+
+                <table class="table table-bordered table-hover" id="example">
+
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>Student</th>
+                            <th>Book</th>
+                            <th>ISBN</th>
+                            <th>Issue Date</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                    {% for issue in issued_books %}
+
+
+                        <tr>
+
+
+                            <td>{{ forloop.counter }}</td>
+
+
+                            <td>{{ issue.student }}</td>
+
+
+                            <td>{{ issue.book }}</td>
+
+
+                            <td>{{ issue.book.isbn }}</td>
+
+
+                            <td>{{ issue.issue_date }}</td>
+
+
+                            <td>{{ issue.due_date }}</td>
+
+
+
+                            <td>
+
+
+                                {% if issue.status == "Issued" %}
+
+                                    <span class="badge bg-primary">
+                                        Issued
+                                    </span>
+
+
+                                {% elif issue.status == "Returned" %}
+
+                                    <span class="badge bg-success">
+                                        Returned
+                                    </span>
+
+
+                                {% else %}
+
+                                    <span class="badge bg-danger">
+                                        Overdue
+                                    </span>
+
+
+                                {% endif %}
+
+
+                            </td>
+
+
+
+
+                            <td>
+
+
+                                <button 
+                                class="btn btn-warning btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editStatusModal{{ issue.id }}">
+
+                                    Edit
+
+                                </button>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    {% empty %}
+
+
+                        <tr>
+
+                            <td colspan="8">
+
+                                No issued books found.
+
+                            </td>
+
+                        </tr>
+
+
+                    {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ================= EDIT STATUS MODAL ================= -->
+
+
+{% for issue in issued_books %}
+
+
+
+<div class="modal fade" 
+     id="editStatusModal{{ issue.id }}" 
+     tabindex="-1">
+
+
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+
+
+
+            <form method="POST"
+            action="{% url 'update_issue_status' issue.id %}">
+
+
+            {% csrf_token %}
+
+
+
+
+                <div class="modal-header">
+
+
+                    <h5 class="modal-title">
+                        Update Book Status
+                    </h5>
+
+
+                    <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+
+                    </button>
+
+
+                </div>
+
+
+
+
+
+                <div class="modal-body">
+
+
+                    <p>
+                        <strong>Student:</strong>
+                        {{ issue.student }}
+                    </p>
+
+
+
+                    <p>
+                        <strong>Book:</strong>
+                        {{ issue.book }}
+                    </p>
+
+
+
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+
+
+                    <select name="status" 
+                    class="form-select">
+
+
+                        <option value="Issued"
+                        {% if issue.status == "Issued" %}
+                            selected
+                        {% endif %}>
+                            Issued
+                        </option>
+
+
+
+                        <option value="Returned"
+                        {% if issue.status == "Returned" %}
+                            selected
+                        {% endif %}>
+                            Returned
+                        </option>
+
+
+
+                        <option value="Overdue"
+                        {% if issue.status == "Overdue" %}
+                            selected
+                        {% endif %}>
+                            Overdue
+                        </option>
+
+
+                    </select>
+
+
+
+                </div>
+
+
+
+
+
+
+                <div class="modal-footer">
+
+
+                    <button type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                        Close
+
+                    </button>
+
+
+
+
+                    <button type="submit"
+                    class="btn btn-primary">
+
+                        Save Changes
+
+                    </button>
+
+
+                </div>
+
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block js %}
+
+
+<script>
+
+$(document).ready(function(){
+
+    $('#example').DataTable();
+
+});
+
+
+</script>
+
+
+{% endblock %}

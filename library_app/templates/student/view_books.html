@@ -1,0 +1,232 @@
+{% extends 'partials/student_navbar.html' %}
+{% load static %}
+
+
+{% block title %}
+Browse Books
+{% endblock %}
+
+
+
+{% block css %}
+
+<style>
+    body {
+        background: #f8fafc;
+    }
+
+
+    .book-card {
+
+        background: white;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        height: 100%;
+        transition: .3s;
+
+    }
+
+
+    .book-card:hover {
+
+        transform: translateY(-5px);
+
+    }
+
+
+    .book-img {
+
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+
+    }
+
+
+    .book-title {
+
+        color: #111827;
+        font-weight: 700;
+        margin-top: 15px;
+
+    }
+
+
+    .info {
+
+        color: #6b7280;
+    }
+
+
+    .available {
+
+        color: #059669;
+        font-weight: 600;
+
+    }
+
+
+    .issued {
+
+        color: #d97706;
+        font-weight: 600;
+
+    }
+
+
+    .search-box {
+
+        background: white;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+    }
+
+
+    .search-btn {
+
+        background: #059669;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 25px;
+
+    }
+</style>
+
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+
+<div class="container-fluid">
+
+
+    <h2 class="mb-4 fw-bold">
+        Browse Books
+    </h2>
+
+
+
+    <div class="search-box">
+
+
+        <form method="GET">
+
+            <div class="row">
+
+
+                <div class="col-md-10">
+
+                    <input type="text" name="search" class="form-control"
+                        placeholder="Search book, author or category..." value="{{request.GET.search}}">
+
+
+                </div>
+
+
+                <div class="col-md-2">
+
+                    <button class="search-btn w-100">
+
+                        <i class="bi bi-search"></i>
+                        Search
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+
+
+
+    <div class="row g-4">
+
+
+        {% for book in books %}
+
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+
+
+            <div class="book-card">
+                <h5 class="book-title">
+                    {{book.title}}
+                </h5>
+
+
+                <p class="info">
+                    <i class="bi bi-person"></i>
+                    {{book.author}}
+                </p>
+
+
+                <p class="info">
+                    <i class="bi bi-bookmark"></i>
+                    {{book.category}}
+                </p>
+
+
+                {% if book.available %}
+
+                <p class="available">
+                    <i class="bi bi-check-circle"></i>
+                    Available
+                </p>
+
+
+                {% else %}
+
+                <p class="issued">
+                    <i class="bi bi-clock"></i>
+                    Issued
+                </p>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+        {% empty %}
+
+
+        <div class="text-center">
+
+            <h4>
+                No Books Found
+            </h4>
+
+        </div>
+
+
+        {% endfor %}
+
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

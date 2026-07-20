@@ -1,0 +1,410 @@
+{% extends 'partials/admin_navbar.html' %}
+{% load static %}
+
+{% block title %}Students List{% endblock %}
+
+
+{% block css %}
+<style>
+    body {
+        background: #f8fafc;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+    /* Main Card */
+    .students-card {
+
+        margin-top: 40px;
+        padding: 35px;
+        background: #ffffff;
+        border-radius: 22px;
+        box-shadow: 0 10px 30px rgba(17, 24, 39, 0.10);
+
+    }
+
+
+
+    /* Heading */
+    .students-card h2 {
+
+        text-align: center;
+        color: #111827;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 30px;
+
+    }
+
+
+
+    /* Table */
+
+    .table {
+
+        overflow: hidden;
+        border-radius: 15px;
+
+    }
+
+
+    .table thead th {
+
+        background: #111827 !important;
+        color: white;
+        padding: 15px;
+        border: none;
+        font-weight: 600;
+
+    }
+
+
+
+    .table tbody td {
+
+        padding: 14px;
+        vertical-align: middle;
+        color: #374151;
+
+    }
+
+
+
+    .table-hover tbody tr:hover {
+
+        background: #ecfdf5 !important;
+        transition: .3s;
+
+    }
+
+
+
+    /* Search */
+
+    .dataTables_filter input {
+
+        border-radius: 25px !important;
+        padding: 8px 15px !important;
+        border: 1px solid #d1d5db !important;
+
+    }
+
+
+    .dataTables_filter input:focus {
+
+        border-color: #059669 !important;
+        outline: none;
+
+    }
+
+
+
+    /* Length */
+
+    .dataTables_length select {
+
+        border-radius: 10px;
+        padding: 5px;
+        border: 1px solid #ddd;
+
+    }
+
+
+
+    /* Export Buttons */
+
+    .dt-buttons button {
+
+        background: #059669 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 20px !important;
+        padding: 8px 18px !important;
+        font-weight: 600;
+        margin: 5px;
+
+    }
+
+
+    .dt-buttons button:hover {
+
+        background: #047857 !important;
+
+    }
+
+
+
+    /* Pagination */
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+
+
+        background: #059669 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 50% !important;
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+
+
+        background: #d97706 !important;
+        color: white !important;
+
+    }
+
+
+
+
+    /* Delete Button */
+
+    .btn-delete {
+
+
+        background: #dc2626;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 7px 18px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: .3s;
+
+    }
+
+
+
+    .btn-delete:hover {
+
+        background: #991b1b;
+        transform: translateY(-2px);
+
+    }
+
+
+
+
+    /* Empty */
+
+    .empty-state {
+
+        padding: 30px;
+        color: #6b7280;
+        font-size: 18px;
+
+    }
+
+
+
+    /* Responsive */
+
+    @media(max-width:768px) {
+
+        .students-card {
+
+            padding: 20px;
+
+        }
+
+
+        .students-card h2 {
+
+            font-size: 24px;
+
+        }
+
+
+        .dt-buttons button {
+
+            width: 100%;
+
+        }
+
+    }
+</style>
+{% endblock %}
+
+
+
+
+{% block body %}
+
+<div class="container students-card">
+
+
+    <h2>
+        Students List
+    </h2>
+
+
+
+    <div class="table-responsive">
+
+
+        <table class="table table-hover table-striped text-center" id="example">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>Sr.No</th>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Branch</th>
+                    <th>Class</th>
+                    <th>Roll No</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+                {% for student in students %}
+
+
+                <tr>
+
+                    <td>{{forloop.counter}}</td>
+
+                    <td>
+                        {{student.user.get_full_name}}
+                    </td>
+
+
+                    <td>
+                        {{student.user.id}}
+                    </td>
+
+
+                    <td>
+                        {{student.user.email}}
+                    </td>
+
+
+                    <td>
+                        {{student.phone}}
+                    </td>
+
+
+                    <td>
+                        {{student.branch}}
+                    </td>
+
+
+                    <td>
+                        {{student.classroom}}
+                    </td>
+
+
+                    <td>
+                        {{student.roll_no}}
+                    </td>
+
+
+
+                    <td>
+
+
+                        <form method="POST" action="{% url 'delete_student' student.id %}" style="display:inline;">
+
+
+                            {% csrf_token %}
+
+
+                            <button type="submit" class="btn-delete" onclick="return confirm('Delete this student?')">
+
+                                Delete
+
+                            </button>
+
+
+                        </form>
+
+
+                    </td>
+
+
+                </tr>
+
+
+                {% empty %}
+
+
+                <tr>
+
+                    <td colspan="9" class="empty-state">
+
+                        No students found.
+
+                    </td>
+
+                </tr>
+
+
+                {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#example').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+                'copy',
+                'excel',
+                'csv',
+                'pdf'
+            ],
+
+            columnDefs: [
+                {
+                    orderable: false,
+                    targets: 8
+                }
+            ]
+
+
+        });
+
+
+    });
+
+
+</script>
+
+
+{% endblock %}

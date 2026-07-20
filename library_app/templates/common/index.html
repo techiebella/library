@@ -1,0 +1,673 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Library Management System{% endblock %}
+
+
+{% block css %}
+
+<style>
+    body {
+
+        background: #f8fafc;
+
+        color: #111827;
+
+    }
+
+
+
+    /* ================= HERO ================= */
+
+
+    .hero-section {
+
+        min-height: 520px;
+
+        display: flex;
+
+        align-items: center;
+
+        text-align: center;
+
+
+        background:
+
+            radial-gradient(circle at top left, #d1fae5, transparent 35%),
+
+            radial-gradient(circle at bottom right, #fef3c7, transparent 35%),
+
+            #ffffff;
+
+
+        padding: 90px 0;
+
+        position: relative;
+
+        overflow: hidden;
+
+    }
+
+
+
+    /* Floating shapes */
+
+
+    .hero-section::before {
+
+        content: "";
+
+        position: absolute;
+
+        width: 350px;
+
+        height: 350px;
+
+
+        background: #059669;
+
+        opacity: .08;
+
+        border-radius: 50%;
+
+
+        top: -150px;
+
+        left: -150px;
+
+    }
+
+
+
+    .hero-section::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 300px;
+
+        height: 300px;
+
+
+        background: #d97706;
+
+        opacity: .10;
+
+
+        border-radius: 50%;
+
+
+        right: -120px;
+
+        bottom: -120px;
+
+    }
+
+
+
+    /* Heading */
+
+
+    .hero-section h1 {
+
+        font-size: 3.5rem;
+
+        font-weight: 800;
+
+        color: #111827;
+
+        letter-spacing: -1px;
+
+        position: relative;
+
+        z-index: 1;
+
+    }
+
+
+
+    .hero-section h1 span {
+
+        color: #059669;
+
+    }
+
+
+
+    /* Description */
+
+
+    .hero-section p {
+
+        max-width: 750px;
+
+        margin: 25px auto;
+
+
+        font-size: 1.15rem;
+
+        line-height: 1.8;
+
+
+        color: #64748b;
+
+
+        position: relative;
+
+        z-index: 1;
+
+    }
+
+
+
+    /* ================= BUTTON ================= */
+
+
+    .hero-buttons {
+
+        margin-top: 35px;
+
+        position: relative;
+
+        z-index: 2;
+
+    }
+
+
+
+    .btn-primary {
+
+
+        background:
+
+            linear-gradient(135deg, #059669, #047857) !important;
+
+
+        border: none !important;
+
+
+        padding: 14px 38px;
+
+
+        border-radius: 50px;
+
+
+        font-weight: 600;
+
+
+        font-size: 16px;
+
+
+        box-shadow:
+
+            0 12px 25px rgba(5, 150, 105, .25);
+
+
+        transition: .3s;
+
+    }
+
+
+
+    .btn-primary:hover {
+
+
+        transform: translateY(-5px);
+
+
+        background:
+
+            linear-gradient(135deg, #047857, #065f46) !important;
+
+
+    }
+
+
+
+    /* ================= ROLE SECTION ================= */
+
+
+    .role-row {
+
+
+        display: flex;
+
+        justify-content: center;
+
+
+        gap: 40px;
+
+
+        flex-wrap: wrap;
+
+
+    }
+
+
+
+    /* Cards */
+
+
+    .role-card {
+
+
+        width: 320px;
+
+
+        background: white;
+
+
+        padding: 40px 30px;
+
+
+        border-radius: 25px;
+
+
+        text-align: center;
+
+
+        border: 1px solid #e5e7eb;
+
+
+
+        box-shadow:
+
+
+            0 15px 35px rgba(0, 0, 0, .07);
+
+
+
+        transition: .4s;
+
+
+    }
+
+
+
+    .role-card:hover {
+
+
+        transform: translateY(-12px);
+
+
+        border-color: #059669;
+
+
+        box-shadow:
+
+
+            0 25px 45px rgba(5, 150, 105, .15);
+
+
+    }
+
+
+
+    /* Images */
+
+
+    .role-card img {
+
+
+        width: 120px;
+
+
+        height: 120px;
+
+
+        object-fit: contain;
+
+
+        margin-bottom: 20px;
+
+
+        transition: .4s;
+
+
+    }
+
+
+
+    .role-card:hover img {
+
+
+        transform: scale(1.08);
+
+
+    }
+
+
+
+    /* Title */
+
+
+    .role-card h4 {
+
+
+        font-size: 26px;
+
+
+        font-weight: 700;
+
+
+        color: #111827;
+
+
+    }
+
+
+
+    /* Description */
+
+
+    .role-card p {
+
+
+        color: #64748b;
+
+
+        font-size: 15px;
+
+
+        line-height: 1.6;
+
+
+    }
+
+
+
+    /* Login Buttons */
+
+
+    .btn-outline-primary {
+
+
+        border: 2px solid #059669 !important;
+
+
+        color: #059669 !important;
+
+
+        border-radius: 50px;
+
+
+        padding: 10px 30px;
+
+
+        font-weight: 600;
+
+
+        transition: .3s;
+
+
+    }
+
+
+
+    .btn-outline-primary:hover {
+
+
+        background: #059669 !important;
+
+
+        color: white !important;
+
+
+    }
+
+
+
+    /* ================= ANIMATION ================= */
+
+
+    .hero-section h1,
+
+    .hero-section p,
+
+    .role-card {
+
+
+        animation: slideUp .8s ease;
+
+
+    }
+
+
+
+    @keyframes slideUp {
+
+
+        from {
+
+
+            opacity: 0;
+
+            transform: translateY(40px);
+
+
+        }
+
+
+        to {
+
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+
+        }
+
+
+    }
+
+
+
+    /* ================= MOBILE ================= */
+
+
+    @media(max-width:768px) {
+
+
+        .hero-section {
+
+
+            padding: 60px 20px;
+
+
+        }
+
+
+
+        .hero-section h1 {
+
+
+            font-size: 2.2rem;
+
+
+        }
+
+
+
+        .role-card {
+
+
+            width: 90%;
+
+
+        }
+
+
+
+    }
+</style>
+
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+
+
+<!-- ================= HERO SECTION ================= -->
+
+
+<section class="hero-section">
+
+
+    <div class="container">
+
+
+        <h1>
+
+            Welcome to
+
+            <span>Library Management System</span>
+
+        </h1>
+
+
+
+        <p>
+
+            A smart digital platform to manage books, students,
+
+            issue records, and library activities efficiently.
+
+        </p>
+
+
+
+        <div class="hero-buttons">
+
+
+            <a href="{% url 'student_registration' %}" class="btn btn-primary">
+
+
+                Register as Student
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ================= ROLE SECTION ================= -->
+
+
+<div class="container my-5">
+
+
+    <div class="role-row">
+
+
+
+        <!-- ADMIN CARD -->
+
+
+        <div class="role-card">
+
+
+            <img src="{% static 'images/admin.png' %}" alt="Admin">
+
+
+
+            <h4>
+
+                Admin
+
+            </h4>
+
+
+
+            <p>
+
+                Manage books, students, issue records
+
+                and complete library operations.
+
+            </p>
+
+
+
+            <a href="{% url 'admin_login' %}" class="btn btn-outline-primary mt-3">
+
+
+                Login as Admin
+
+
+            </a>
+
+
+
+        </div>
+
+
+
+
+
+        <!-- STUDENT CARD -->
+
+
+        <div class="role-card">
+
+
+            <img src="{% static 'images/students.png' %}" alt="Student">
+
+
+
+            <h4>
+
+                Student
+
+            </h4>
+
+
+
+            <p>
+
+                Search books, check availability,
+
+                and manage issued books easily.
+
+            </p>
+
+
+
+            <a href="{% url 'student_login' %}" class="btn btn-outline-primary mt-3">
+
+
+                Login as Student
+
+
+            </a>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

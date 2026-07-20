@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Student Login{% endblock %}
+
+{% block css %}
+<style>
+
+body{
+
+    background:
+    linear-gradient(135deg,#ecfdf5,#fff7ed);
+
+}
+
+
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+
+.login-card{
+
+    max-width:450px;
+
+    margin:80px auto;
+
+    padding:45px;
+
+    background:
+
+    rgba(255,255,255,.85);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:30px;
+
+    border:
+
+    1px solid rgba(255,255,255,.5);
+
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,.12);
+
+
+    animation:fade .6s ease;
+
+}
+
+
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+/* =========================
+   TITLE
+========================= */
+
+
+.login-card h2{
+
+
+    font-size:32px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+
+    background:
+
+    linear-gradient(45deg,#065f46,#d97706);
+
+
+    background-clip:text;
+
+    -webkit-background-clip:text;
+
+
+    color:transparent;
+
+}
+
+
+
+/* =========================
+   LABEL
+========================= */
+
+
+label{
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* =========================
+   INPUT
+========================= */
+
+
+.form-control{
+
+
+    padding:14px;
+
+    border-radius:15px;
+
+    border:1px solid #d1d5db;
+
+    background:#f8fafc;
+
+    transition:.3s;
+
+}
+
+
+
+.form-control:focus{
+
+
+    border-color:#059669;
+
+
+    box-shadow:
+
+    0 0 12px rgba(5,150,105,.25);
+
+}
+
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+
+.btn-login{
+
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:14px;
+
+    border-radius:50px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+
+    background:
+
+    linear-gradient(135deg,#059669,#10b981);
+
+
+    border:none;
+
+
+    box-shadow:
+
+    0 12px 30px rgba(5,150,105,.3);
+
+
+    transition:.3s;
+
+}
+
+
+
+.btn-login:hover{
+
+
+    background:
+
+    linear-gradient(135deg,#047857,#059669);
+
+
+    transform:translateY(-4px);
+
+}
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+
+@media(max-width:576px){
+
+.login-card{
+
+    margin:40px 15px;
+
+    padding:30px;
+
+}
+
+
+.login-card h2{
+
+    font-size:26px;
+
+}
+
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="login-card">
+
+    <h2>Student Login</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username"
+                   placeholder="Enter Username" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password"
+                   placeholder="Enter Password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-login">
+            Login
+        </button>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if alert %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Invalid Username or Password.',
+        confirmButtonColor: '#0d6efd'
+    });
+</script>
+{% endif %}
+
+{% endblock %}
