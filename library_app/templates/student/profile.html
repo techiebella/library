@@ -188,16 +188,6 @@ body{
 
     <div class="row">
 
-        <div class="col-md-4 profile-img">
-
-            {% if user.student.image %}
-                <img src="{{ user.student.image.url }}" alt="Profile Image">
-            {% else %}
-                <img src="{% static 'images/default_profile.png' %}" alt="Default Profile">
-            {% endif %}
-
-        </div>
-
         <div class="col-md-8">
 
             <div class="profile-info">
