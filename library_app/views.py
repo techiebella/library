@@ -31,11 +31,13 @@ def index(request):
 # ADMIN LOGIN
 # ==========================
 def admin_login(request):
-
     if request.method == "POST":
 
         username = request.POST.get("username")
         password = request.POST.get("password")
+
+        print("USERNAME =", username)
+        print("PASSWORD =", password)
 
         user = authenticate(
             request,
@@ -43,28 +45,22 @@ def admin_login(request):
             password=password
         )
 
+        print("AUTHENTICATED USER =", user)
+
         if user:
 
+            print("IS SUPERUSER =", user.is_superuser)
+
             if user.is_superuser:
-                login(request,user)
+                login(request, user)
                 return redirect("admin_dashboard")
 
-            messages.error(
-                request,
-                "You are not an admin"
-            )
+            messages.error(request, "You are not an admin")
 
         else:
-            messages.error(
-                request,
-                "Invalid username or password"
-            )
+            messages.error(request, "Invalid username or password")
 
-    return render(
-        request,
-        "auth/admin_login.html"
-    )
-
+    return render(request, "auth/admin_login.html")
 
 
 # ==========================
