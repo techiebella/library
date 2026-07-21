@@ -232,7 +232,6 @@ def student_registration(request):
             semester=request.POST.get("semester") or 1,
             phone=request.POST.get("phone"),
             address=request.POST.get("address"),
-            image=request.FILES.get("image"),
         )
 
         messages.success(

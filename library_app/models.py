@@ -234,13 +234,6 @@ class Student(models.Model):
     )
 
 
-    image = models.ImageField(
-        upload_to="students/",
-        blank=True,
-        null=True
-    )
-
-
     admission_date = models.DateField(
         auto_now_add=True
     )
